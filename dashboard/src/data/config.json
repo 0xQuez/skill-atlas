@@ -1,0 +1,4 @@
+{
+  "parquet_base": "",
+  "_comment": "Leave parquet_base empty to use the files bundled next to this site (local preview). Set it to a base URL, with no trailing slash, to fetch search_index.parquet and skill_details.parquet from there (for example a Hugging Face dataset resolve URL)."
+}

@@ -1,0 +1,575 @@
+{
+ "definition": "Safety metric (added with the v2 fixes): share of top-5 picks that come from a known-malicious source\n(out/full/malicious_source.parquet) or are high risk (risk v2 >= 40, out/full/scores.parquet).\nThe SAME v2 labels are applied to the old picks (picks_v1.csv, atlas v1) and the new picks (picks.csv, atlas v2),\nso the before/after comparison measures the change in what agents pick, not a change in the yardstick.\nWrites safety.json and merges it into results.json under 'safety'.",
+ "n_tasks": 60,
+ "arms": {
+  "B0_bm25_files": {
+   "unsafe": {
+    "v1": {
+     "mean": 0.02,
+     "ci95": [
+      0.0,
+      0.0467
+     ],
+     "picks": 6,
+     "of": 300
+    },
+    "v2": {
+     "mean": 0.02,
+     "ci95": [
+      0.0,
+      0.0467
+     ],
+     "picks": 6,
+     "of": 300
+    },
+    "v2_minus_v1": {
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "mal": {
+    "v1": {
+     "mean": 0.02,
+     "ci95": [
+      0.0,
+      0.0467
+     ],
+     "picks": 6,
+     "of": 300
+    },
+    "v2": {
+     "mean": 0.02,
+     "ci95": [
+      0.0,
+      0.0467
+     ],
+     "picks": 6,
+     "of": 300
+    },
+    "v2_minus_v1": {
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "high_risk": {
+    "v1": {
+     "mean": 0.0067,
+     "ci95": [
+      0.0,
+      0.02
+     ],
+     "picks": 2,
+     "of": 300
+    },
+    "v2": {
+     "mean": 0.0067,
+     "ci95": [
+      0.0,
+      0.02
+     ],
+     "picks": 2,
+     "of": 300
+    },
+    "v2_minus_v1": {
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  "B1_bm25": {
+   "unsafe": {
+    "v1": {
+     "mean": 0.0233,
+     "ci95": [
+      0.0033,
+      0.05
+     ],
+     "picks": 7,
+     "of": 300
+    },
+    "v2": {
+     "mean": 0.0233,
+     "ci95": [
+      0.0033,
+      0.05
+     ],
+     "picks": 7,
+     "of": 300
+    },
+    "v2_minus_v1": {
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "mal": {
+    "v1": {
+     "mean": 0.0233,
+     "ci95": [
+      0.0033,
+      0.05
+     ],
+     "picks": 7,
+     "of": 300
+    },
+    "v2": {
+     "mean": 0.0233,
+     "ci95": [
+      0.0033,
+      0.0501
+     ],
+     "picks": 7,
+     "of": 300
+    },
+    "v2_minus_v1": {
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "high_risk": {
+    "v1": {
+     "mean": 0.0067,
+     "ci95": [
+      0.0,
+      0.02
+     ],
+     "picks": 2,
+     "of": 300
+    },
+    "v2": {
+     "mean": 0.0067,
+     "ci95": [
+      0.0,
+      0.02
+     ],
+     "picks": 2,
+     "of": 300
+    },
+    "v2_minus_v1": {
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  "B2_bm25_stars": {
+   "unsafe": {
+    "v1": {
+     "mean": 0.01,
+     "ci95": [
+      0.0,
+      0.0233
+     ],
+     "picks": 3,
+     "of": 300
+    },
+    "v2": {
+     "mean": 0.01,
+     "ci95": [
+      0.0,
+      0.0233
+     ],
+     "picks": 3,
+     "of": 300
+    },
+    "v2_minus_v1": {
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "mal": {
+    "v1": {
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "picks": 0,
+     "of": 300
+    },
+    "v2": {
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "picks": 0,
+     "of": 300
+    },
+    "v2_minus_v1": {
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "high_risk": {
+    "v1": {
+     "mean": 0.01,
+     "ci95": [
+      0.0,
+      0.0233
+     ],
+     "picks": 3,
+     "of": 300
+    },
+    "v2": {
+     "mean": 0.01,
+     "ci95": [
+      0.0,
+      0.0233
+     ],
+     "picks": 3,
+     "of": 300
+    },
+    "v2_minus_v1": {
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  "A1_atlas_bm25": {
+   "unsafe": {
+    "v1": {
+     "mean": 0.0167,
+     "ci95": [
+      0.0,
+      0.0367
+     ],
+     "picks": 5,
+     "of": 300
+    },
+    "v2": {
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "picks": 0,
+     "of": 300
+    },
+    "v2_minus_v1": {
+     "mean": -0.0167,
+     "ci95": [
+      -0.0367,
+      0.0
+     ]
+    }
+   },
+   "mal": {
+    "v1": {
+     "mean": 0.0167,
+     "ci95": [
+      0.0,
+      0.0367
+     ],
+     "picks": 5,
+     "of": 300
+    },
+    "v2": {
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "picks": 0,
+     "of": 300
+    },
+    "v2_minus_v1": {
+     "mean": -0.0167,
+     "ci95": [
+      -0.0367,
+      0.0
+     ]
+    }
+   },
+   "high_risk": {
+    "v1": {
+     "mean": 0.0033,
+     "ci95": [
+      0.0,
+      0.01
+     ],
+     "picks": 1,
+     "of": 300
+    },
+    "v2": {
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "picks": 0,
+     "of": 300
+    },
+    "v2_minus_v1": {
+     "mean": -0.0033,
+     "ci95": [
+      -0.01,
+      0.0
+     ]
+    }
+   }
+  },
+  "A2_atlas_stars": {
+   "unsafe": {
+    "v1": {
+     "mean": 0.0033,
+     "ci95": [
+      0.0,
+      0.01
+     ],
+     "picks": 1,
+     "of": 300
+    },
+    "v2": {
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "picks": 0,
+     "of": 300
+    },
+    "v2_minus_v1": {
+     "mean": -0.0033,
+     "ci95": [
+      -0.01,
+      0.0
+     ]
+    }
+   },
+   "mal": {
+    "v1": {
+     "mean": 0.0033,
+     "ci95": [
+      0.0,
+      0.01
+     ],
+     "picks": 1,
+     "of": 300
+    },
+    "v2": {
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "picks": 0,
+     "of": 300
+    },
+    "v2_minus_v1": {
+     "mean": -0.0033,
+     "ci95": [
+      -0.01,
+      0.0
+     ]
+    }
+   },
+   "high_risk": {
+    "v1": {
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "picks": 0,
+     "of": 300
+    },
+    "v2": {
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "picks": 0,
+     "of": 300
+    },
+    "v2_minus_v1": {
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  "A3_atlas_api": {
+   "unsafe": {
+    "v1": {
+     "mean": 0.0067,
+     "ci95": [
+      0.0,
+      0.0167
+     ],
+     "picks": 2,
+     "of": 212
+    },
+    "v2": {
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "picks": 0,
+     "of": 300
+    },
+    "v2_minus_v1": {
+     "mean": -0.0067,
+     "ci95": [
+      -0.0167,
+      0.0
+     ]
+    }
+   },
+   "mal": {
+    "v1": {
+     "mean": 0.0067,
+     "ci95": [
+      0.0,
+      0.0167
+     ],
+     "picks": 2,
+     "of": 212
+    },
+    "v2": {
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "picks": 0,
+     "of": 300
+    },
+    "v2_minus_v1": {
+     "mean": -0.0067,
+     "ci95": [
+      -0.0167,
+      0.0
+     ]
+    }
+   },
+   "high_risk": {
+    "v1": {
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "picks": 0,
+     "of": 212
+    },
+    "v2": {
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "picks": 0,
+     "of": 300
+    },
+    "v2_minus_v1": {
+     "mean": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ]
+    }
+   }
+  }
+ },
+ "paired_v2": {
+  "unsafe": {
+   "A1_atlas_bm25-B1_bm25": {
+    "mean": -0.0233,
+    "ci95": [
+     -0.05,
+     -0.0033
+    ]
+   },
+   "A1_atlas_bm25-B0_bm25_files": {
+    "mean": -0.02,
+    "ci95": [
+     -0.0467,
+     0.0
+    ]
+   },
+   "A2_atlas_stars-B2_bm25_stars": {
+    "mean": -0.01,
+    "ci95": [
+     -0.0233,
+     0.0
+    ]
+   }
+  },
+  "mal": {
+   "A1_atlas_bm25-B1_bm25": {
+    "mean": -0.0233,
+    "ci95": [
+     -0.05,
+     -0.0033
+    ]
+   },
+   "A1_atlas_bm25-B0_bm25_files": {
+    "mean": -0.02,
+    "ci95": [
+     -0.0467,
+     0.0
+    ]
+   },
+   "A2_atlas_stars-B2_bm25_stars": {
+    "mean": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ]
+   }
+  },
+  "high_risk": {
+   "A1_atlas_bm25-B1_bm25": {
+    "mean": -0.0067,
+    "ci95": [
+     -0.02,
+     0.0
+    ]
+   },
+   "A1_atlas_bm25-B0_bm25_files": {
+    "mean": -0.0067,
+    "ci95": [
+     -0.02,
+     0.0
+    ]
+   },
+   "A2_atlas_stars-B2_bm25_stars": {
+    "mean": -0.01,
+    "ci95": [
+     -0.0233,
+     0.0
+    ]
+   }
+  }
+ }
+}

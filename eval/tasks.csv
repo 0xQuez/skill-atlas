@@ -1,0 +1,61 @@
+task_id,stratum,need,query
+p01,popular,Review a pull request for bugs and style issues,code review pull request
+p02,popular,Create or edit a Word .docx document,docx word document
+p03,popular,Write end-to-end browser tests with Playwright,playwright e2e tests
+p04,popular,Extract text and tables from PDF files,pdf extract text
+p05,popular,Write a git commit message following conventions,git commit message
+p06,popular,Design a polished frontend UI,frontend design ui
+p07,popular,Follow test-driven development for a feature,test driven development
+p08,popular,Debug a failing program systematically,systematic debugging
+p09,popular,Write an implementation plan before coding,writing implementation plan
+p10,popular,Build an MCP server,mcp server
+p11,popular,Create a new agent skill,skill creator
+p12,popular,Make an Excel spreadsheet with formulas,excel spreadsheet xlsx
+p13,popular,Create a PowerPoint presentation,powerpoint pptx presentation
+p14,popular,Write React components with best practices,react best practices
+p15,popular,Do a security review of code,security review vulnerabilities
+p16,popular,Write and optimize SQL queries,sql query optimization
+p17,popular,Write Terraform infrastructure as code,terraform infrastructure
+p18,popular,Containerize an app with Docker,docker container dockerfile
+p19,popular,Set up a GitHub Actions CI pipeline,github actions ci
+p20,popular,Brainstorm and refine a product idea,brainstorming ideas
+p21,popular,Write API documentation,api documentation
+p22,popular,Refactor legacy code safely,refactor code
+p23,popular,Automate a web browser to scrape a page,browser automation scraping
+p24,popular,Build a Next.js app,nextjs app router
+p25,popular,Write Python unit tests with pytest,pytest unit tests
+p26,popular,Design a REST API,rest api design
+p27,popular,Deploy to Kubernetes,kubernetes deployment
+p28,popular,Write marketing copy,copywriting marketing
+p29,popular,Do SEO optimization for a website,seo optimization
+p30,popular,Write TypeScript with strict types,typescript types
+n01,niche,Analyze RNA-seq data for differential expression,rna-seq differential expression
+n02,niche,Write a Solidity smart contract audit,solidity smart contract audit
+n03,niche,Fine-tune an LLM with LoRA,lora fine-tuning llm
+n04,niche,Generate Mermaid diagrams,mermaid diagram
+n05,niche,Build a Chrome browser extension,chrome extension manifest
+n06,niche,Write a Rust CLI tool,rust cli clap
+n07,niche,Query a Neo4j graph database with Cypher,neo4j cypher
+n08,niche,Create a Godot game scene,godot game engine
+n09,niche,Write LaTeX for an academic paper,latex academic paper
+n10,niche,Set up Stripe payments,stripe payments integration
+n11,niche,Write Swift UI code for an iOS app,swiftui ios
+n12,niche,Detect AWS IAM privilege escalation,aws iam privilege escalation
+n13,niche,Process geospatial data with GeoPandas,geopandas geospatial
+n14,niche,Write Ansible playbooks,ansible playbook
+n15,niche,Build a Telegram bot,telegram bot
+n16,niche,Do time-series forecasting,time series forecasting
+n17,niche,Write Flutter mobile widgets,flutter widgets
+n18,niche,Create Grafana dashboards and Prometheus alerts,prometheus alerting grafana
+n19,niche,Write Elixir Phoenix code,elixir phoenix
+n20,niche,Run a literature review of scientific papers,literature review papers
+n21,niche,Optimize PostgreSQL performance,postgres performance tuning
+n22,niche,Write Unity C# gameplay scripts,unity c# game
+n23,niche,Build a Supabase backend,supabase
+n24,niche,Generate images with Stable Diffusion prompts,stable diffusion prompt
+n25,niche,Manage Kafka streams,kafka streaming
+n26,niche,Write accessibility (a11y) audits for web pages,accessibility audit wcag
+n27,niche,Do financial statement analysis,financial statement analysis
+n28,niche,Translate and localize an app (i18n),i18n localization
+n29,niche,Write Verilog hardware designs,verilog fpga
+n30,niche,Build a Shopify theme or app,shopify

@@ -1,0 +1,10 @@
+import {chromium} from "playwright";
+const b = await chromium.launch({executablePath: "/usr/bin/google-chrome", args: ["--no-sandbox"]});
+const p = await (await b.newContext({viewport: {width: 1280, height: 900}})).newPage(); const errs = [];
+p.on("pageerror", (e) => errs.push(e.message)); p.on("console", (m) => m.type() === "error" && errs.push(m.text()));
+await p.goto((process.env.BASE || "http://127.0.0.1:8770") + "/search", {waitUntil: "networkidle"}); await p.waitForSelector("#status");
+await p.locator("form", {hasText: "Security tools"}).getByLabel("only", {exact: true}).check();
+await p.fill("input[type=text]", "active directory"); await p.click("button:has-text('Search')");
+await p.waitForSelector('#status[data-q="active directory|any|include"][data-wh="only"]', {timeout: 180000});
+await p.screenshot({path: "screenshots/search-whitehat.png", fullPage: false});
+console.log("search-whitehat.png errors", errs.length); await b.close();

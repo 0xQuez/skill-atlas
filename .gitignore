@@ -1,0 +1,46 @@
+# Build outputs, caches, and local environments
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.DS_Store
+.idea/
+.vscode/
+
+# Pipeline data and downloads (too large for git; published separately)
+/out/
+/data/
+/tmp/
+/.tmp/
+/logs/
+/sample/
+/hf/
+
+# Hugging Face staging: keep cards and scripts, not the data or built site
+hf_publish/dataset/*
+!hf_publish/dataset/README.md
+hf_publish/space_dashboard/*
+!hf_publish/space_dashboard/README.md
+!hf_publish/space_dashboard/.gitattributes
+
+# Dashboard
+dashboard/node_modules/
+dashboard/dist/
+dashboard/dist_*/
+dashboard/src/.observablehq/cache/
+dashboard/src/data/*.parquet
+dashboard/screenshots/*
+!dashboard/screenshots/overview.png
+!dashboard/screenshots/search-whitehat.png
+!dashboard/screenshots/eval.png
+
+# Large binary artifacts (backstop)
+*.duckdb
+*.duckdb.wal
+*.npz
+*.npy
+*.parquet
+
+# Copied from server/app.py by publish.sh; do not commit a second copy
+hf_publish/space_api/app.py

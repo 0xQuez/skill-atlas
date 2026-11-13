@@ -1,0 +1,270 @@
+[221] NEED: Build a Telegram bot
+  name=telegram-bot | chars=9536
+  desc: "Telegram bot development - chatbots, notifications, AI assistants, and group automation"
+  body: # Telegram Bot Build Telegram bots for chatbots, notifications, AI assistants, and group automation. Based on n8n's Telegram workflow templates. ## Overview This skill covers: - Bot setup and configuration - Message handling patterns - AI-powered assistants - Notification workflows - Group automation --- ## Bot Setup ### Creating a Bot ```yaml setup_steps: 1. create_bot: - open: @BotFather on Telegram - command: /newbot - provide: bot_name - provide: bot_username (must end in 'bot') - receive: API_token 2. configure_bot: - command: /setdescription - command: /setabouttext - command: /setuserpi
+
+[222] NEED: Do financial statement analysis
+  name=financial-statement-analysis | chars=2777
+  desc: '财报分析技能。用于分析公司财务报表，包括三张表解读、盈利能力评估、财务健康诊断、现金流质量验证、发展前景判断、护城河识别。Use when: 用户询问如何看懂财报、分析公司财务状况、评估公司发展前景、识别财务造假、理解利润表/资产负债表/现金流量表、计算财务指标（ROE/ROIC/毛利率/自由现金流等）。'
+  body: # 财报分析技能 以股票分析师视角，系统化解读公司财务报表。 ## 何时使用 - 用户询问如何分析公司财报 - 需要评估一家公司的盈利能力、财务健康度或发展前景 - 需要识别财务造假或利润质量问题的信号 - 需要计算和解读关键财务指标 - 进行同行业多家公司的横向对比分析 ## 分析流程 ### 第一步：快速扫描（现金流优先） 现金流量表是最难造假的一张表，应最先审视： 1. 经营现金流是否持续为正？ 2. 经营现金流能否覆盖投资支出？ 3. 经营现金流 > 净利润 > 0？（黄金验证公式） ### 第二步：利润质量验证 交叉验证利润表与现金流量表： | 信号 | 判断 | |------|------| | 经营现金流 > 净利润 | 利润含金量高 | | 净利润 > 0 但经营现金流为负 | 利润质量差，需警惕 | | 扣非净利润 << 净利润 | 依赖一次性收益粉饰 | | 应收账款增速 > 收入增速 | 可能虚增收入 | ### 第三步：资产负债深度检查 五大维度： 1. **偿债能力**：流动比率（1.5~2 理想）、速动比率（>1 理想）、资产负债率（<60% 较安全） 2. **资产质量**：应收/营收比趋势、存货周转天数、商誉/净资产 >30% 危险 3. **资本结构**：短债 vs 长债比例、有息负债 vs 无息负债（预收款是好负债） 4. **营运效率**：各
+
+[223] NEED: Brainstorm and refine a product idea
+  name=brainstorming-ideas | chars=5291
+  desc: Brainstorm ideas and stress-test draft plans before coding. Use when
+  body: # Brainstorming Ideas Turn a vague idea or draft plan into a well-formed design before coding. Keep the session collaborative, question-driven, and small enough to change direction. ## Core rules - Ask one question at a time. - Use an interactive question tool when available; do not emulate menus in plain text. - Inspect code before asking when code can answer. - Offer 2-3 options with trade-offs and mark one recommendation. - Always allow a free-text or Other answer when options may not fit. - Cut speculative features and keep implementation task breakdown out of scope. ## Interactive questio
+
+[224] NEED: Write an implementation plan before coding
+  name=writing-an-implementation-plan | chars=5067
+  desc: Use when turning a feature spec into a step-by-step implementation plan - file-level changes, order, checkpoints, and risks
+  body: # Writing an Implementation Plan ## What this does Turns a feature spec (output of brainstorming-a-feature, or a written PRD) into an executable implementation plan: file-level changes, ordering, checkpoints, risks, and rollback. Designed so a different person — or future-you in a different session — could execute it without asking clarifying questions. ## When to use - After a feature has been brainstormed and an approach chosen - Before starting to code any non-trivial feature - When handing implementation to someone else - When the work spans multiple sessions and needs continuity ## What y
+
+[225] NEED: Write API documentation
+  name=api-documentation | chars=3605
+  desc: "API documentation workflow for generating OpenAPI specs, creating developer guides, and maintaining comprehensive API documentation."
+  body: # API Documentation Workflow ## Overview Specialized workflow for creating comprehensive API documentation including OpenAPI/Swagger specs, developer guides, code examples, and interactive documentation. ## When to Use This Workflow Use this workflow when: - Creating API documentation - Generating OpenAPI specs - Writing developer guides - Adding code examples - Setting up API portals ## Workflow Phases ### Phase 1: API Discovery #### Skills to Invoke - `api-documenter` - API documentation - `api-design-principles` - API design #### Actions 1. Inventory endpoints 2. Document request/response 3
+
+[226] NEED: Containerize an app with Docker
+  name=docker | chars=2237
+  desc: Docker expert for containers, Compose, Dockerfiles, and debugging
+  body: # Docker Expert You are a Docker specialist. You help users build, run, debug, and optimize containers, write Dockerfiles, manage Compose stacks, and troubleshoot container issues. ## Key Principles - Always use specific image tags (e.g., `node:20-alpine`) instead of `latest` for reproducibility. - Minimize image size by using multi-stage builds and Alpine-based images where appropriate. - Never run containers as root in production. Use `USER` directives in Dockerfiles. - Keep layers minimal — combine related `RUN` commands with `&&` and clean up package caches in the same layer. ## Dockerfile
+
+[227] NEED: Deploy to Kubernetes
+  name=kubernetes-deployment | chars=2471
+  desc: >
+  body: # Kubernetes Deployment ## Table of Contents - [Overview](#overview) - [When to Use](#when-to-use) - [Quick Start](#quick-start) - [Reference Guides](#reference-guides) - [Best Practices](#best-practices) ## Overview Master Kubernetes deployments for managing containerized applications at scale, including multi-container services, resource allocation, health checks, and rolling deployment strategies. ## When to Use - Container orchestration and management - Multi-environment deployments (dev, staging, prod) - Auto-scaling microservices - Rolling updates and blue-green deployments - Service dis
+
+[228] NEED: Process geospatial data with GeoPandas
+  name=geopandas-geospatial | chars=14999
+  desc: >-
+  body: # GeoPandas Geospatial Analysis ## Overview GeoPandas extends pandas with spatial operations on geometric types, combining pandas DataFrames with Shapely geometries and Fiona for file I/O. It enables reading, writing, manipulating, and visualizing geospatial vector data (points, lines, polygons) with a familiar pandas-like API. ## When to Use - Reading and writing spatial file formats (Shapefile, GeoJSON, GeoPackage, Parquet) - Performing spatial joins between geographic datasets (points in polygons, nearest neighbors) - Running overlay operations (intersection, union, difference, clipping) - 
+
+[229] NEED: Write Unity C# gameplay scripts
+  name=gameobject-component-list-all | chars=3383
+  desc: List the fully-qualified C# type names of every concrete `UnityEngine.Component` subclass available in the project. Paginated (default 5/page, max 500). Use this to find a valid `componentName` for 'gameobject-component-add'.
+  body: # GameObject / Component / List All List C# class names extended from UnityEngine.Component. Use this to find component type names for 'gameobject-component-add' tool. Results are paginated to avoid overwhelming responses. ## Inputs - `search` (optional) — case-insensitive substring filter on type names. - `page` (default 0, 0-based) — page index. - `pageSize` (default 5, range 1..500) — items per page. ## Behavior Enumerates `AllComponentTypes` (every non-abstract subclass of `UnityEngine.Component`), filters by `search` if supplied, then returns a `ComponentListResult` containing the request
+
+[230] NEED: Build a Telegram bot
+  name=telegram-bot | chars=1916
+  desc: Telegram bot komutlari ve handler referansi. Use when working with Telegram bot commands, callbacks, or approval workflows.
+  body: # Telegram Bot Reference ## Commands | Command | Description | |---------|-------------| | /start | Ana menu | | /status | Sistem durumu | | /manual | Manuel icerik | | /stats | Analytics ozeti | | /next | Siradaki icerik | | /schedule | Haftalik takvim | | /sync | Insights sync | ## Main Menu ``` [Gunluk Icerik] [Reels] [Carousel] [Otonom] [Siradaki] [Analytics] [Sync] [Yardim] ``` ## Key Callbacks | Callback | Action | |----------|--------| | start_daily | Gunluk pipeline | | create_reels | Reels pipeline | | approve_topic | Konu onayla | | approve_content | Icerik onayla | | approve_visual 
+
+[231] NEED: Optimize PostgreSQL performance
+  name=postgresql-performance-tuning | chars=44835
+  desc: Diagnoses and optimizes PostgreSQL performance through execution plan
+  body: # PostgreSQL Performance Tuning Diagnoses and optimizes PostgreSQL performance across execution plans, indexes, server configuration, connection pooling, vacuum strategy, query patterns, partitioning, and production monitoring. This skill turns raw EXPLAIN ANALYZE output, pg_stat_statements data, and table statistics into actionable optimization decisions for production databases running PostgreSQL 12 through 17. ## TL;DR Checklist - [ ] Run `EXPLAIN (ANALYZE, BUFFERS)` on every slow query before proposing changes - [ ] Check buffer cache hit ratio — target >0.99 for OLTP, >0.95 for analytics 
+
+[232] NEED: Do time-series forecasting
+  name=time-series-forecasting | chars=4180
+  desc: >
+  body: # Time Series Forecasting Best Practices This is a **router skill**. It contains universal principles inline and delegates detailed guidance to reference files loaded on demand. **Always read the relevant reference files before giving advice.** ## Universal Principles (always apply) 1. **Always benchmark against naive methods.** Seasonal naive is the minimum bar. Use MASE (< 1 = beating naive). 2. **Combine forecasts.** Simple average of 3-5 diverse methods is one of the most reliable strategies across 40+ years of evidence (M1 through M6). 3. **Simplicity first.** Complexity increases forecas
+
+[233] NEED: Write Verilog hardware designs
+  name=verilog-fpga-assistant | chars=8713
+  desc: "FPGA assistant for Vivado-oriented Verilog/SystemVerilog RTL work. Use for single-agent FPGA tasks: generate or modify RTL, review synthesis/CDC/reset safety, create self-checking testbenches, write or review XDC constraints, analyze Vivado/XSim reports, debug timing/resource issues, or adapt commo
+  body: # Verilog FPGA Assistant Run a compact FPGA assistant loop: classify the branch, gather hardware facts, act with the relevant reference only, verify what can be verified, and hand off assumptions plus residual risk. This skill is not affiliated with, endorsed by, or sponsored by AMD/Xilinx, lowRISC, or any third-party skill project. See the repository `ATTRIBUTIONS.md` and `NOTICE` before redistributing this skill. ## Source Priority 1. User requirements, repository files, board schematics, vendor constraints, and existing project conventions. 2. Actual tool evidence: simulator logs, Vivado re
+
+[234] NEED: Set up a GitHub Actions CI pipeline
+  name=github-actions-ci | chars=9075
+  desc: >
+  body: # github-actions-ci — Workflow Generator ## Step 0 — Detect ```bash # existing workflows? ls .github/workflows/ 2>/dev/null # available scripts to run in CI node -e "console.log(Object.keys(require('./package.json').scripts||{}).join('\n'))" # mobile (Expo) or web? test -f app.json && echo "mobile (Expo)" || echo "web (Next.js)" ``` If `.github/workflows/ci.yml` already exists → read, show user, ask before overwriting. Never clobber silently. If directory missing → `mkdir -p .github/workflows`. ## Step 1 — Pick workflow flavour Based on detected scripts: | Scripts present | Include in CI | |--
+
+[235] NEED: Design a polished frontend UI
+  name="Frontend Design Guidance Skill" | chars=929
+  desc: "Practical frontend design guidance for landing pages, dashboards, and UI implementation work."
+  body: # Frontend Design Guidance Skill Practical frontend design guidance for landing pages, dashboards, and UI implementation work. ## Prerequisites OpenClaw, optional frontend stack such as Tailwind CSS ## Installation No source-backed install or usage instructions could be extracted automatically. Review the upstream project before running this skill in a sensitive workflow. - Source: https://www.superdesign.dev/ ## Documentation - https://superdesign.dev ## Source - [Agent Skill Exchange](https://agentskillexchange.com/skills/frontend-design-guidance-skill/) 
+
+[236] NEED: Create a PowerPoint presentation
+  name=pptx-generator | chars=1114
+  desc: |
+  body: # pptx-generator > Curated from the MiniMax AI team. ## What it does Create and edit PowerPoint presentations from scratch with PptxGenJS — MiniMax's production-tested deck pipeline. ## Source - Upstream: https://github.com/MiniMax-AI/skills - Category: `slides` ## How to use This catalogue entry advertises the skill in Open Design so the agent discovers it during planning. To run the full upstream workflow with its original assets, scripts, and references, install the upstream bundle into your active agent's skills directory: ```bash # Inspect the upstream README for exact paths open https://
+
+[237] NEED: Create or edit a Word .docx document
+  name=docx | chars=1281
+  desc: |
+  body: # docx > Curated from Anthropic's official skills repository. ## What it does Create, edit, and analyze Word documents with tracked changes, comments, and formatting. Useful for design briefs, copy docs, and review-ready deliverables. ## Source - Upstream: https://github.com/anthropics/skills/tree/main/skills/docx - Category: `documents` ## How to use This catalogue entry advertises the skill in Open Design so the agent discovers it during planning. To run the full upstream workflow with its original assets, scripts, and references, install the upstream bundle into your active agent's skills d
+
+[238] NEED: Containerize an app with Docker
+  name=devcontainer-dockerfile | chars=4737
+  desc: 'Create a devcontainer with a custom Dockerfile for projects that need system packages, custom base images, or multi-stage builds. Use when the user asks for "devcontainer with dockerfile", "custom dockerfile devcontainer", "devcontainer from dockerfile", "devcontainer with custom base image", "devc
+  body: # Create Dev Container with Custom Dockerfile Generate a `.devcontainer/Dockerfile` and `.devcontainer/devcontainer.json` for projects that need image customizations beyond what Features provide. ## When to Use This Skill - Custom system packages (`apt-get install ...`) - Non-standard base images (company registry, specialized distros) - Multi-stage builds for smaller images - Custom build arguments - An existing Dockerfile that should be reused ## Step 1 — Interview ### Question 1: Base Image or Existing Dockerfile Ask whether the user wants to: - **Start from an official devcontainer image**
+
+[239] NEED: Do a security review of code
+  name=gha-security-review | chars=8781
+  desc: "Find exploitable vulnerabilities in GitHub Actions workflows. Every finding MUST include a concrete exploitation scenario — if you can't build the attack, don't report it."
+  body: <!-- Attack patterns and real-world examples sourced from the HackerBot Claw campaign analysis by StepSecurity (2025): https://www.stepsecurity.io/blog/hackerbot-claw-github-actions-exploitation --> # GitHub Actions Security Review Find exploitable vulnerabilities in GitHub Actions workflows. Every finding MUST include a concrete exploitation scenario — if you can't build the attack, don't report it. This skill encodes attack patterns from real GitHub Actions exploits — not generic CI/CD theory. ## When to Use - You are reviewing GitHub Actions workflows for exploitable security issues. - The 
+
+[240] NEED: Do SEO optimization for a website
+  name=seo-optimization | chars=22915
+  desc: Comprehensive 7-phase SEO optimization workflow covering technical SEO auditing, keyword research strategy, on-page optimization, content SEO and E-E-A-T, structured data implementation, link building, and AI search optimization. Use when auditing search engine visibility, diagnosing ranking issues,
+  body: <!-- Agent: developer | Task: #14 | Session: 2026-03-02 --> # SEO Optimization Comprehensive 7-phase SEO optimization workflow. Audit search visibility, diagnose ranking issues, implement structured data, and produce actionable optimization recommendations for both traditional and AI-driven search. ## When to Apply Use this skill when: - Conducting a full technical SEO audit - Diagnosing ranking drops or crawlability issues - Implementing structured data / schema markup for rich results - Conducting keyword research and building content strategy - Optimizing on-page elements (title tags, meta 
+
+[241] NEED: Write API documentation
+  name=api-documentation | chars=2805
+  desc: Guide writing clear, comprehensive API documentation that helps developers integrate
+  body: # Skill: api-documentation ## What I do I guide the creation of clear, developer-centric API documentation. I focus on technical accuracy, intuitive structure, and practical examples to ensure developers can integrate with services quickly and reliably. ## When to use me - Writing OpenAPI (Swagger) or GraphQL schema documentation - Creating developer portals, SDK guides, or integration tutorials - Documenting authentication flows, error codes, and rate limits - Writing API changelogs and migration guides for breaking changes ## Core principles 1. **Technical Accuracy** — Every parameter, type,
+
+[242] NEED: Do SEO optimization for a website
+  name=seo-optimization | chars=6787
+  desc: SEO and content optimization specialist. Use when optimizing web pages, blog posts, landing pages for search engines, implementing structured data, meta tags, Open Graph, technical SEO, Core Web Vitals, or AI search engine optimization (AEO). Covers both traditional SEO and AI-powered search discove
+  body: You are operating as a Senior SEO & Content Strategist with 10+ years of experience optimizing for both traditional search engines (Google, Bing) and AI-powered search platforms (ChatGPT, Perplexity, Google AI Overviews, Bing Copilot). ## Core Principles 1. **Content-first** - Quality, comprehensive content that genuinely answers user intent 2. **Technical foundation** - Fast, crawlable, properly structured sites 3. **E-E-A-T** - Experience, Expertise, Authoritativeness, Trustworthiness 4. **AI-ready** - Structured content that AI systems can parse, cite, and summarize 5. **Measurement** - Dat
+
+[243] NEED: Create a PowerPoint presentation
+  name=presentations | chars=1241
+  desc: Create, edit, inspect, or convert PowerPoint decks and PPTX slide presentations with practical layout and verification steps.
+  body: # Presentations Use this skill when the user asks for slides, a deck, a PowerPoint file, or a `.pptx` deliverable. ## Workflow 1. Determine the deck purpose, audience, slide count, and output path. 2. Build an outline with one clear claim or job per slide. 3. Use available local tools: - `python-pptx` for editable PPTX creation and edits - LibreOffice for conversion or preview export when installed - Existing images, screenshots, charts, or generated assets only when they improve the slide's job 4. Keep slides editable. Prefer native text boxes, tables, charts, and images over flattened screen
+
+[244] NEED: Detect AWS IAM privilege escalation
+  name=aws-iam-privilege-escalation | chars=9892
+  desc: >
+  body: # AWS IAM Privilege Escalation ## When to Use - When you have obtained valid AWS credentials (Access Key ID and Secret Access Key), an STS temporary token, or compromised an EC2 instance metadata service (IMDS). - To assess the blast radius of a compromised cloud identity. - When performing a white-box cloud architecture review or executing a Red Team operation in an AWS environment. ## Prerequisites - Authorized scope and rules of engagement for the target environment - Appropriate tools installed on the attack/analysis platform - Understanding of the target technology stack and architecture 
+
+[245] NEED: Translate and localize an app (i18n)
+  name=i18n-localization | chars=13628
+  desc: Internationalization and localization for global applications. Use when adding multi-language support, handling regional formats, or preparing apps for global markets.
+  body: # Internationalization & Localization Comprehensive guide for building globally-ready applications. ## Key Concepts ### Terminology ``` i18n (Internationalization): - Engineering for multiple languages/regions - Building the infrastructure - Happens once, during development L10n (Localization): - Adapting for specific locale - Translation, formatting, content - Happens per locale, ongoing Locale: - Language + Region combination - Format: language-REGION (e.g., en-US, pt-BR) - Determines formatting rules ``` ### What Needs Localization? | Category | Examples | | ------------- | ----------------
+
+[246] NEED: Set up a GitHub Actions CI pipeline
+  name=github-actions-ci | chars=3623
+  desc: GitHub Actions CI/CD guide for the dotfiles repository. Use when creating or modifying GitHub Actions workflows, adding CI/CD pipelines, setting up build/test automation, configuring matrix builds, working with artifacts, implementing E2E tests in containers, or troubleshooting workflow issues. Cove
+  body: # GitHub Actions CI/CD Guide ## Project Context Current workflows: - **installer-ci.yml**: Build → test → E2E test (matrix: ubuntu, debian, fedora, centos containers, macOS) - **release.yml**: GoReleaser on version tags ## Core Workflow Template ```yaml name: CI on: pull_request: paths: - "component/**" - ".github/workflows/ci.yml" push: branches: [main] paths: - "component/**" concurrency: group: ${{ github.workflow }}-${{ github.head_ref || github.ref }} cancel-in-progress: true permissions: {} jobs: build: runs-on: ubuntu-latest permissions: contents: read steps: - uses: actions/checkout@v4
+
+[247] NEED: Containerize an app with Docker
+  name=depot-container-builds | chars=9752
+  desc: >
+  body: # Depot Container Builds Depot runs Docker image builds on remote high-performance builders (16 CPU, 32 GB RAM, NVMe SSD cache). `depot build` is a drop-in replacement for `docker build` / `docker buildx build`. `depot bake` replaces `docker buildx bake`. ## Project Selection for Multi-Org Users Container build commands target a specific project, not an organization. If expected projects aren't visible or a build unexpectedly prompts to select a project, the current default org may be wrong: ```bash depot org show # Current org ID depot org list # Orgs the user belongs to depot org switch <org
+
+[248] NEED: Deploy to Kubernetes
+  name=kubernetes-deployment | chars=12200
+  desc: Deploy, manage, and scale applications on Kubernetes clusters using manifests, Helm charts, and autoscaling configurations.
+  body: # Kubernetes Deployment This skill enables the agent to deploy and manage applications on Kubernetes clusters. The agent can generate deployment manifests, services, ingress rules, Helm charts, and autoscaling configurations. It handles the full lifecycle from initial deployment through scaling, rolling updates, and troubleshooting, following production best practices for resource management, security, and reliability. ## Workflow 1. **Configure Cluster Access:** The agent verifies that `kubectl` is configured with the correct cluster context and namespace. It checks connectivity with `kubectl
+
+[249] NEED: Optimize PostgreSQL performance
+  name=postgresql-optimization | chars=4122
+  desc: "PostgreSQL database optimization workflow for query tuning, indexing strategies, performance analysis, and production database management."
+  body: # PostgreSQL Optimization Workflow ## Overview Specialized workflow for PostgreSQL database optimization including query tuning, indexing strategies, performance analysis, vacuum management, and production database administration. ## When to Use This Workflow Use this workflow when: - Optimizing slow PostgreSQL queries - Designing indexing strategies - Analyzing database performance - Tuning PostgreSQL configuration - Managing production databases ## Workflow Phases ### Phase 1: Performance Assessment #### Skills to Invoke - `database-optimizer` - Database optimization - `postgres-best-practic
+
+[250] NEED: Write Swift UI code for an iOS app
+  name=ios-swiftui | chars=1662
+  desc: Build declarative UI and manage data flow with SwiftUI in iOS. Use when building declarative SwiftUI views or managing data flow with property wrappers.
+  body: # SwiftUI Expert ## **Priority: P0 (CRITICAL)** **Role**: iOS UI Expert. Prioritize smooth 60fps, clean data flow. ## Implementation Guidelines - **Views**: Small, composable structs. Extract subviews often to keep `body` clean. - **State Selection**: - **@State for local simple data** (Booleans, Strings, local view toggles). - **@StateObject for VMs** (initialized only once in parent view). - **@ObservedObject for passed-in VMs** (initialized by parent). - **Modifiers**: Order matters sequentially. Apply layout modifiers before visual ones (e.g., `.padding().background()`). - **Preview**: Alw
+
+[251] NEED: Build a Telegram bot
+  name=telegram-bot | chars=8848
+  desc: Build and manage Telegram bots via the Telegram Bot API. Create bots, send messages, handle webhooks, manage groups and channels.
+  body: # Telegram Bot Builder Skill Build and manage Telegram bots directly from Clawdbot. ## Setup 1. Open Telegram and message [@BotFather](https://t.me/BotFather) 2. Send `/newbot` and follow the prompts to create your bot 3. Copy the bot token (looks like `123456789:ABCdefGHIjklMNOpqrsTUVwxyz`) 4. Set environment variable: ```bash export TELEGRAM_BOT_TOKEN="your-bot-token" ``` ## API Base URL All requests go to: ``` https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/METHOD_NAME ``` ## Usage ### Bot Information #### Get bot info ```bash curl -s "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/getMe" 
+
+[252] NEED: Brainstorm and refine a product idea
+  name=brainstorming-ideas | chars=3567
+  desc: AI agent generates diverse solutions through structured divergent thinking and systematic exploration frameworks. Use when exploring options, solving problems creatively, or generating alternatives.
+  body: # Brainstorming Ideas ## Quick Start 1. **Diverge** (20 min) - Generate 20+ ideas with no judgment 2. **Explore** (10 min) - Combine, connect, flesh out themes 3. **Converge** (15 min) - Evaluate against criteria, prioritize 4. **Select** - Pick top 3 with clear rationale 5. **Document** - Capture all ideas and decisions for future reference ## Features | Feature | Description | Guide | |---------|-------------|-------| | Divergent Phase | Generate many options | Quantity over quality, no judgment | | SCAMPER | Systematic modification | Substitute, Combine, Adapt, Modify, Put to use, Eliminate
+
+[253] NEED: Do SEO optimization for a website
+  name=seo-optimization | chars=7555
+  desc: Optimize a webpage for search engines by analyzing on-page elements, improving technical performance, and implementing structured data for maximum visibility.
+  body: # SEO Optimization This skill enables an AI agent to perform comprehensive search engine optimization on any webpage or website. The agent audits on-page factors (title tags, meta descriptions, headings, internal links), evaluates technical SEO health (Core Web Vitals, mobile-first indexing, crawlability), and implements structured data markup. The goal is to produce actionable recommendations that improve organic search rankings and click-through rates. ## Workflow 1. **Crawl and inventory the page.** Fetch the target URL and parse the full HTML document. Extract the title tag, meta descripti
+
+[254] NEED: Write a Rust CLI tool
+  name=rust-cli-clap | chars=2956
+  desc: Implicit Rust CLI and Clap skill. Use for command-line apps and tools, clap derive or builder APIs, subcommands, flags, config and env precedence, stdin/stdout/stderr contracts, JSON output, exit codes, completions, manpages, shell UX, CLI tests, and binary distribution.
+  body: # Rust CLI Clap Build Rust command-line tools that are predictable, scriptable, pleasant in terminals, and easy to ship. ## Operating Model 1. Discover the existing CLI contract first: `Cargo.toml`, `src/bin`, `clap` definitions, integration tests, snapshots, release scripts, and README examples. 2. Preserve user-facing command behavior unless the task explicitly asks for a breaking change. If behavior changes, update tests and docs in the same patch. 3. Prefer `clap` derive for ordinary CLIs. Use the builder API when commands are generated dynamically, hidden/unstable command surfaces need cu
+
+[255] NEED: Do time-series forecasting
+  name=time-series-forecasting | chars=5043
+  desc: >
+  body: # Time series forecasting ## What this skill does Given a univariate time series, produce future predictions with a workflow that is: - baseline-first - explicit about seasonality - cost-aware - easy to extend when more forecasting tools are added If the user wants a reproducible benchmark/report workflow on the vendored M4 Monthly mini-panel, switch to [`SKILL-pro.md`](./SKILL-pro.md). This base skill is for arbitrary `run_id` + `variable` series, not the fixed workflow contract. ## Minimal info to proceed - A specific series (`run_id` + `variable`, or raw array in Python) - Forecast horizon 
+
+[256] NEED: Set up a GitHub Actions CI pipeline
+  name=github-actions-ci | chars=1688
+  desc: Check GitHub Actions CI status after pushing changes. Triggers after `git push` in projects with a `.github/workflows` directory. For Xcode Cloud builds (iOS/macOS projects without .github/workflows), use the xcode-cloud-ci skill instead.
+  body: # GitHub Actions CI Watcher After performing a `git push` in a project with `.github/workflows`, check CI status. **Note**: This skill is for GitHub Actions only. For Xcode Cloud builds, use the `xcode-cloud-ci` skill. ## Workflow 1. **After pushing**, wait before checking (CI needs time to start) 2. **Determine polling strategy** based on project: - Small projects / fast CI: wait 30-60s initially, poll every 15-30s - Large projects / slow CI: wait 2-5min initially, poll every 30-60s - Consider workflow file complexity, project size, and any prior knowledge 3. **Check status** using the check_
+
+[257] NEED: Optimize PostgreSQL performance
+  name=postgres-optimization | chars=11843
+  desc: PostgreSQL performance optimization techniques and query tuning
+  body: ## What I do I provide comprehensive guidance on optimizing PostgreSQL databases including: - Query optimization with EXPLAIN ANALYZE - Index strategy and design - Performance monitoring queries - Configuration tuning - Common performance anti-patterns - Best practices for scalability ## When to use me Use this skill when: - Database queries are slow - Need to optimize existing database schema - Planning indexes for new features - Investigating performance bottlenecks - Setting up monitoring and alerting - Preparing database for production scale ## Query Optimization Workflow ### 1. Identify S
+
+[258] NEED: Optimize PostgreSQL performance
+  name=odoo-performance-tuner | chars=4813
+  desc: "Expert guide for diagnosing and fixing Odoo performance issues: slow queries, worker configuration, memory limits, PostgreSQL tuning, and profiling tools."
+  body: # Odoo Performance Tuner ## Overview This skill helps diagnose and resolve Odoo performance problems — from slow page loads and database bottlenecks to worker misconfiguration and memory bloat. It covers PostgreSQL query tuning, Odoo worker settings, and built-in profiling tools. ## When to Use This Skill - Odoo is slow in production (slow page loads, timeouts). - Getting `MemoryError` or `Worker timeout` errors in logs. - Diagnosing a slow database query using Odoo's profiler. - Tuning `odoo.conf` for a specific server spec. ## How It Works 1. **Activate**: Mention `@odoo-performance-tuner` a
+
+[259] NEED: Create or edit a Word .docx document
+  name="Create and repair Word documents with layout-safe DOCX workflows" | chars=1832
+  desc: "Use the Anthropic docx skill when an agent needs to produce or repair a real .docx deliverable with headings, tables, numbering, tracked changes, or layout constraints. It frames the work as a document-building workflow with validation and packaging rules, not as a generic document library listing.
+  body: # Create and repair Word documents with layout-safe DOCX workflows Use the Anthropic docx skill when an agent needs to produce or repair a real .docx deliverable with headings, tables, numbering, tracked changes, or layout constraints. It frames the work as a document-building workflow with validation and packaging rules, not as a generic document library listing. ## Prerequisites docx generation library, pandoc, LibreOffice ## Installation Requirements and caveats from upstream: - The frontmatter requires only two fields: Basic usage or getting-started notes: - Select document-skills or examp
+
+[260] NEED: Write React components with best practices
+  name=react-best-practices | chars=5649
+  desc: "Comprehensive performance optimization guide for React and Next.js applications, maintained by Vercel. Use when writing new React components or Next.js pages, implementing data fetching (client or server-side), or reviewing code for performance issues."
+  body: # Vercel React Best Practices Comprehensive performance optimization guide for React and Next.js applications, maintained by Vercel. Contains 45 rules across 8 categories, prioritized by impact to guide automated refactoring and code generation. ## When to Use Reference these guidelines when: - Writing new React components or Next.js pages - Implementing data fetching (client or server-side) - Reviewing code for performance issues - Refactoring existing React/Next.js code - Optimizing bundle size or load times ## Rule Categories by Priority | Priority | Category | Impact | Prefix | |----------
+
+[261] NEED: Write Verilog hardware designs
+  name=sva-assertions | chars=1990
+  desc: Specialized skill for creating and debugging SystemVerilog assertions for FPGA verification
+  body: # SVA Assertions Skill ## Overview Expert skill for SystemVerilog Assertions (SVA) development, enabling formal property specification and verification for FPGA designs. ## Capabilities - Write concurrent and immediate assertions - Create property specifications and sequences - Implement coverage properties (cover property) - Create assume properties for formal verification - Debug assertion failures with cause analysis - Generate assertion bind files - Optimize assertion performance - Integrate assertions with formal tools ## Target Processes - sva-development.js - constrained-random-verifica
+
+[262] NEED: Write a Rust CLI tool
+  name=rust-impl-clap-cli | chars=17510
+  desc: >
+  body: # rust-impl-clap-cli The **clap 4.x CLI parser** skill: how to scaffold a command-line interface with the derive macro API, when to drop to the builder API for dynamic CLIs, how to model subcommands and reusable argument groups, how to wire custom value parsers and environment-variable fallbacks, and how to ship shell completions through `clap_complete`. Cross-references: [[rust-impl-cargo-project]] (declaring the `derive` feature in `Cargo.toml`), [[rust-syntax-traits]] (derive macros, `FromStr` for custom parsers), [[rust-impl-error-handling]] (returning `anyhow::Result` from `main`), [[rust
+
+[263] NEED: Write API documentation
+  name=api-documentation | chars=14693
+  desc: |
+  body: # API Documentation ## When to Use - User wants to document a REST API or set of endpoints - User asks for API reference documentation or endpoint descriptions - User needs to write developer-facing docs with request/response examples - User wants to create a structured API reference from code or specs - User needs to document authentication, rate limits, or error codes for an API - Do NOT use when the user wants a step-by-step tutorial for using the API (use `tutorial-writing` instead) - Do NOT use when the user wants a general user guide (use `user-guide` instead) - Do NOT use when the user 
+
+[264] NEED: Do a security review of code
+  name="Review and-or Analyze Human-Readable Code to Identify Vulnerabilities and Verif | chars=5419
+  desc: "Help identify vulnerabilities so that they can be corrected before the software is released to prevent exploitation."
+  body: # Review and/or Analyze Human-Readable Code to Identify Vulnerabilities and Verify Compliance with Security Requirements (PW.7) Review and/or Analyze Human-Readable Code to Identify Vulnerabilities and Verify Compliance with Security Requirements ## High-Level Description **Practice Group:** Produce Well-Secured Software (PW) **Framework:** NIST SP 800-218 SSDF v1.1 Help identify vulnerabilities so that they can be corrected before the software is released to prevent exploitation. Using automated methods lowers the effort and resources needed to detect vulnerabilities. Human-readable code incl
+
+[265] NEED: Write an implementation plan before coding
+  name=faion-writing-implementation-plan | chars=2285
+  desc: "SDD Framework: Creates implementation-plan.md from design.md. Decomposes into tasks that fit 100k token context. Triggers on \"implementation plan\", \"impl plan\"."
+  body: # SDD: Writing Implementation Plans **Communication: User's language. Docs: English.** ## Key Principle **Each task MUST fit 100k token context** = atomic, single-agent executable. ## Workflow ``` LOAD CONTEXT → ANALYZE COMPLEXITY → DEFINE WORK UNITS → APPLY 100k RULE → DEPENDENCIES → DRAFT → REVIEW → SAVE ``` ## Phase 1: Load Context Read: `constitution.md`, `spec.md`, `design.md` ## Phase 2: Analyze Complexity For each file in design.md: | File | Action | Complexity | Est. Tokens | |------|--------|------------|-------------| | models.py | CREATE | High | 40k | | services.py | CREATE | High 
+
+[266] NEED: Brainstorm and refine a product idea
+  name=brainstorming-ideas | chars=10493
+  desc: Turn ideas into designs through collaborative dialogue. Use when user wants to brainstorm, design features, explore approaches, or think through implementation before coding.
+  body: # Brainstorming Ideas Into Designs Transform vague ideas into fully-formed designs through structured collaborative dialogue. **Use TodoWrite** to track these 7 phases: 1. Understand the idea (dialogue first, no agents) 2. Explore requirements (Starbursting questions) 3. Checkpoint - offer exploration/research options 4. Research similar solutions (if requested) 5. Present approaches with recommendation 6. Validate design incrementally 7. Document and next steps --- ## Core Principles - **Dialogue first** - Ask the user before spawning any agents - **One question at a time** - Never batch mult
+
+[267] NEED: Write React components with best practices
+  name=react-best-practices | chars=4299
+  desc: React best-practices reviewer for TSX files. Triggers after editing multiple TSX components to run a condensed quality checklist covering component structure, hooks usage, accessibility, performance, and TypeScript patterns.
+  body: # React Best-Practices Review After editing several TSX/JSX files, run through this condensed checklist to catch common issues before they compound. ## Component Structure - **One component per file** — colocate helpers only if they are private to that component - **Named exports** over default exports for better refactoring and tree-shaking - **Props interface** defined inline or colocated, not in a separate `types.ts` unless shared - **Destructure props** in the function signature: `function Card({ title, children }: CardProps)` - **Avoid barrel files** (`index.ts` re-exports) in large proje
+
+[268] NEED: Manage Kafka streams
+  name=kafka-streaming | chars=5227
+  desc: Kafka 3.6 producer/consumer patterns for this stack. Load when wiring Kafka into a Spark job, debugging stream lag, or writing demo producers. Covers topic creation, Structured Streaming integration, schema serialization, and the local test harness.
+  body: # Kafka streaming This stack runs Kafka 3.6 (Confluent Platform 7.5) + Zookeeper via `docker-compose-kafka.yml`. Broker is on `localhost:9092` (`kafka:9092` from inside the docker network). Auto-topic-creation is enabled by default. ## Topic ops ```bash # List docker exec kafka kafka-topics --list --bootstrap-server localhost:9092 # Create docker exec kafka kafka-topics --create --topic orders \ --partitions 3 --replication-factor 1 \ --bootstrap-server localhost:9092 # Describe docker exec kafka kafka-topics --describe --topic orders --bootstrap-server localhost:9092 # Consume (CLI) docker ex
+
+[269] NEED: Design a polished frontend UI
+  name="frontend-design-ui-ux-pro-max" | chars=2028
+  desc: "Crafts premium, distinctive frontend interfaces with non-AI-homogenized aesthetics. Invoke when designing UIs that need unique visual identity, sophisticated details, and human-crafted design sensibility beyond generic AI gradients and minimalism."
+  body: # Frontend Design & UI-UX-PRO-MAX ## Core Principles - Avoid generic AI-looking blue-purple gradients, excessive glassmorphism, and decorative card-heavy layouts. - Build production-grade interfaces with clear hierarchy, purposeful color, refined spacing, and concrete interaction states. - Match the interface to the domain: operational tools should be dense, quiet, and scannable; expressive apps can carry more visual character. - Prefer functional polish over decoration: hover, focus, active, loading, empty, error, and responsive states should all feel intentional. ## Workflow 1. Inspect the e
+
+[270] NEED: Design a polished frontend UI
+  name=tools-ui-frontend-design | chars=7272
+  desc: Create distinctive, production-grade frontend interfaces grounded in this repo's design system. Use when asked to build web components, pages, or applications. Combines bold creative direction with token-constrained implementation.
+  body: # Frontend Design Build distinctive UI that is both creatively intentional and design-system-compliant. This skill bridges the Claude `frontend-design` plugin's creative philosophy with this repo's concrete design token system, brand language, and component library. The plugin provides the "think boldly" mindset; this skill constrains it to the actual design system. ## Philosophy (from the Claude frontend-design plugin) - Commit to a BOLD aesthetic direction before coding - Avoid generic AI aesthetics (purple gradients, Inter/Roboto, predictable grid layouts) - Every design choice should be in
+
+[271] NEED: Do financial statement analysis
+  name=financial-statement-analysis | chars=7750
+  desc: Analyze corporate financial statements and produce a structured write-up covering data sourcing, three-statement sanity checks, trend tables, key ratios, cash-flow quality, and red-flag detection. USE THIS SKILL whenever the user shares a financial filing, annual report, earnings release, PDF link, 
+  body: ## Before anything else — handle the data source The quality of the analysis depends entirely on whether the underlying numbers are trustworthy. Do this first, before writing a single ratio. ### If a PDF URL was provided Attempt `web_fetch` on the URL. If the fetch succeeds and returns readable text, extract the core financial tables. If the fetch fails or returns empty/garbled content (common with exchange servers like SSE, SZSE, HKEX): 1. Note clearly: "PDF could not be fetched directly — using secondary source" 2. Search for the filing data via `web_search` using company name + year + "年度报告
+
+[272] NEED: Write an implementation plan before coding
+  name=writing-implementation-plans | chars=43933
+  desc: Use when design is complete and you need detailed implementation tasks for engineers with zero codebase context - creates comprehensive implementation plans with exact file paths, complete code examples, and verification steps assuming engineer has minimal domain knowledge
+  body: # Writing Implementation Plans ## Overview Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each task, code, testing, docs they might need to check, how to verify it. Give them the whole plan as bite-sized tasks. DRY. YAGNI. Frequent commits. Assume they are a skilled developer, but know almost nothing about our toolset or problem domain. Assume they don't know good test design very well. **Announce at start:** "I'm using the writing-implementation-plans skill
+
+[273] NEED: Deploy to Kubernetes
+  name=kubernetes-deployment | chars=3354
+  desc: "Kubernetes deployment workflow for container orchestration, Helm charts, service mesh, and production-ready K8s configurations."
+  body: # Kubernetes Deployment Workflow ## Overview Specialized workflow for deploying applications to Kubernetes including container orchestration, Helm charts, service mesh configuration, and production-ready K8s patterns. ## When to Use This Workflow Use this workflow when: - Deploying to Kubernetes - Creating Helm charts - Configuring service mesh - Setting up K8s networking - Implementing K8s security ## Workflow Phases ### Phase 1: Container Preparation #### Skills to Invoke - `docker-expert` - Docker containerization - `k8s-manifest-generator` - K8s manifests #### Actions 1. Create Dockerfile 
+
+[274] NEED: Write React components with best practices
+  name=react-best-practices | chars=7349
+  desc: Comprehensive React and Next.js performance optimization guide with 40+ rules for eliminating waterfalls, optimizing bundles, and improving rendering. Use when optimizing React apps, reviewing performance, or refactoring components.
+  body: # React Best Practices - Performance Optimization Comprehensive performance optimization guide for React and Next.js applications with 40+ rules organized by impact level. Designed to help developers eliminate performance bottlenecks and follow best practices. ## When to use this skill **Use React Best Practices when:** - Optimizing React or Next.js application performance - Reviewing code for performance improvements - Refactoring existing components for better performance - Implementing new features with performance in mind - Debugging slow rendering or loading issues - Reducing bundle size 
+
