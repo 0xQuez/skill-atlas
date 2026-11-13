@@ -15,7 +15,7 @@ DATASET_URL="https://huggingface.co/datasets/${DATASET_ID}"
 PARQUET_BASE="https://huggingface.co/datasets/${DATASET_ID}/resolve/main"
 # Space URLs: "user/name" becomes "user-name.hf.space"
 API_URL="https://${API_SPACE//\//-}.hf.space"
-WEB_URL="https://${WEB_SPACE//\//-}.hf.space"
+WEB_URL="https://${WEB_SPACE//\//-}.static.hf.space"
 
 PY="${ROOT}/.venv/bin/python"
 if [[ ! -x "$PY" ]]; then PY="$(command -v python3)"; fi
@@ -94,7 +94,7 @@ echo
 
 # --- stage API Space (copy current server/app.py) ---
 API="$ROOT/hf_publish/space_api"
-cp "$ROOT/server/app.py" "$API/app.py"
+cp "$ROOT/server/app.py" "$API/atlas_server.py"
 
 # --- create repos and upload (private) ---
 export DATASET_ID API_SPACE WEB_SPACE DATASET_URL API_URL WEB_URL DS API WEB
@@ -124,7 +124,7 @@ def ensure_space(repo_id, space_sdk):
         print("created private space:", repo_id, space_sdk)
 
 ensure_dataset(dataset_id)
-ensure_space(api_space, "docker")
+ensure_space(api_space, "gradio")
 ensure_space(web_space, "static")
 
 print("uploading dataset (this is about 1.1 GB and will take a while)...")
@@ -135,8 +135,8 @@ api.upload_folder(
     commit_message="Add Skill Atlas derived data (CC BY 4.0, based on GitSkills)",
 )
 
-# If the dataset stays private, the API Space needs a token to download it.
-api.add_space_secret(api_space, "HF_TOKEN", os.environ["HF_TOKEN"])
+# Do not store a write-scoped token as a Space secret. Data is baked into
+# the API Space (./data), and once the dataset is public no token is needed.
 api.add_space_variable(api_space, "SKILL_ATLAS_DATASET", dataset_id)
 api.add_space_variable(api_space, "ATLAS_PRODUCTION", "1")
 api.add_space_variable(api_space, "DUCKDB_MEMORY", "1GB")
@@ -148,7 +148,7 @@ api.upload_folder(
     folder_path=os.environ["API"],
     repo_id=api_space,
     repo_type="space",
-    allow_patterns=["Dockerfile", "README.md", "requirements.txt", "app.py", "entrypoint.py", ".dockerignore"],
+    allow_patterns=["README.md", "requirements.txt", "app.py", "atlas_server.py", "entrypoint.py", "data/*"],
     commit_message="Add Skill Atlas API Space",
 )
 

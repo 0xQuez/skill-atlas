@@ -26,6 +26,21 @@ Skill Atlas answers one question for each skill: **is this worth using?** Each r
 
 It **filters out bad options**. It does not yet find better ones. In a 60-task test, near-duplicate picks in an agent's top 5 dropped from 26% to under 1%, with no loss in relevance. See the repo's `eval/README.md`.
 
+## Try it
+
+- Website: [0xQuez/skill-atlas-web](https://huggingface.co/spaces/0xQuez/skill-atlas-web) (direct: https://0xquez-skill-atlas-web.static.hf.space)
+- Search API: https://0xquez-skill-atlas-api.hf.space (`/healthz`, `/stats`, `/skills/search`, `/skills/{id}/verdict`, `/skills/{id}/canonical`)
+- MCP (streamable HTTP): https://0xquez-skill-atlas-api.hf.space/mcp
+- Code: [0xQuez/skill-atlas](https://github.com/0xQuez/skill-atlas)
+
+```json
+{
+  "mcpServers": {
+    "skill-atlas": { "url": "https://0xquez-skill-atlas-api.hf.space/mcp" }
+  }
+}
+```
+
 ## What's in this dataset
 
 | File | Role |

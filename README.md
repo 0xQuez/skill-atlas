@@ -19,17 +19,15 @@ In a test of 60 realistic agent tasks, each asking for 5 skills:
 - After the v2 safety fixes, the atlas picked **0** skills from known harmful collections or with high risk. Plain search picked 7 of 300.
 - In a blind relevance check, 93% of plain-search picks fit the task, against 94% with the atlas. The share of picks that were both a good fit and reusable (40% vs 46%) is too small a gap to be sure about.
 
-The full write-up, including what did not work and the limitations of the test, is in [`eval/README.md`](eval/README.md). The dashboard has an [Eval](http://127.0.0.1:8770/eval) page with the same numbers.
+The full write-up, including what did not work and the limitations of the test, is in [`eval/README.md`](eval/README.md). The dashboard has an [Eval](https://0xquez-skill-atlas-web.static.hf.space/eval) page with the same numbers (also at http://127.0.0.1:8770/eval when you run it locally).
 
 ## Try it
 
-The hosted addresses will land here once they are up. Until then, everything runs on your own machine.
-
-| What | Local | Hosted (coming soon) |
+| What | Local | Hosted |
 |---|---|---|
-| Website | http://127.0.0.1:8770 | `HOSTED_DASHBOARD_URL` |
-| Search API and MCP tools | http://127.0.0.1:8765 (`/skills/search`, `/mcp`) | `HOSTED_API_URL` |
-| Dataset (Parquet + cards) | `out/full/` after you build it | `HOSTED_DATASET_URL` |
+| Website | http://127.0.0.1:8770 | https://huggingface.co/spaces/0xQuez/skill-atlas-web (direct: https://0xquez-skill-atlas-web.static.hf.space) |
+| Search API and MCP tools | http://127.0.0.1:8765 (`/skills/search`, `/mcp`) | https://0xquez-skill-atlas-api.hf.space (`/skills/search`, `/mcp`) |
+| Dataset (Parquet + cards) | `out/full/` after you build it | https://huggingface.co/datasets/0xQuez/skill-atlas |
 
 ### Website
 
@@ -71,12 +69,12 @@ curl -s "http://127.0.0.1:8765/skills/search?q=terraform+module&verdict=use&limi
 ```json
 {
   "mcpServers": {
-    "skill-atlas": { "url": "http://127.0.0.1:8765/mcp" }
+    "skill-atlas": { "url": "https://0xquez-skill-atlas-api.hf.space/mcp" }
   }
 }
 ```
 
-A hosted endpoint is meant to make this easier for other people and agents. The Docker Space and rate limits are prepared in `hf_publish/space_api/`; they are not live yet.
+Point an MCP client at that URL, or at `http://127.0.0.1:8765/mcp` when you run the API locally. The hosted API is a Hugging Face Space and may go to sleep after idle time; the first request after that can take a minute to wake it. It is rate-limited to 60 requests per minute per IP (`/healthz` and `/` are not limited).
 
 ## Verdicts, slop-skills, and white-hat tags
 
@@ -103,7 +101,7 @@ Skills from known harmful collections (security benchmarks that ship booby-trapp
 
 ## How to reproduce
 
-You need Python 3.11+, a few GB of RAM for the API, and much more (a GPU is nice, not required) to rebuild the embeddings from scratch. A full pipeline run starts from the GitSkills files on Hugging Face and writes `out/full/`. The short path if you only want the site or API is to use the published Parquet files once they are up (`HOSTED_DATASET_URL`).
+You need Python 3.11+, a few GB of RAM for the API, and much more (a GPU is nice, not required) to rebuild the embeddings from scratch. A full pipeline run starts from the GitSkills files on Hugging Face and writes `out/full/`. The short path if you only want the site or API is to use the published Parquet files at https://huggingface.co/datasets/0xQuez/skill-atlas.
 
 ```bash
 # 1. pipeline (full rebuild — details and every flag in docs/pipeline.md)

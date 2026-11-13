@@ -2,7 +2,7 @@
 title: Skill Atlas
 emoji: 🗺️
 colorFrom: purple
-colorTo: cyan
+colorTo: blue
 sdk: static
 pinned: false
 license: mit

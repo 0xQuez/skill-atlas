@@ -5,7 +5,7 @@ title: For agents
 # For agents
 
 <div class="card" style="border-left:4px solid #e2a400">
-<b>API address.</b> Locally the service is at <code>http://127.0.0.1:8765</code>. The hosted endpoint will be at <code>HOSTED_API_URL</code> (coming soon).
+<b>API address.</b> Hosted: <a href="https://0xquez-skill-atlas-api.hf.space"><code>https://0xquez-skill-atlas-api.hf.space</code></a> (MCP at <code>/mcp</code>). Locally the same service is at <code>http://127.0.0.1:8765</code>. The hosted Space may sleep when idle; the first request after that can take a minute. It is rate-limited to 60 requests per minute per IP.
 </div>
 
 Agents can ask Skill Atlas about a skill before they install it or follow it. Three steps:
@@ -33,7 +33,7 @@ Every word you type must appear somewhere in the skill's name, its GitHub owner/
 ```json
 {
   "mcpServers": {
-    "skill-atlas": { "url": "http://127.0.0.1:8765/mcp" }
+    "skill-atlas": { "url": "https://0xquez-skill-atlas-api.hf.space/mcp" }
   }
 }
 ```
@@ -44,7 +44,7 @@ import asyncio
 from mcp import Client
 
 async def main():
-    async with Client("http://127.0.0.1:8765/mcp") as c:
+    async with Client("https://0xquez-skill-atlas-api.hf.space/mcp") as c:
         res = await c.call_tool("search_skills", {"query": "terraform module", "verdict": "use", "limit": 3})
         print(res.content[0].text)
 
@@ -62,7 +62,7 @@ asyncio.run(main())
 | GET | `/healthz` | `{"ok": true}` |
 
 ```bash
-curl -s "http://127.0.0.1:8765/skills/search?q=react+native+testing&verdict=use&limit=3" | jq '.results[] | {skill_id, name, verdict, github_url}'
+curl -s "https://0xquez-skill-atlas-api.hf.space/skills/search?q=react+native+testing&verdict=use&limit=3" | jq '.results[] | {skill_id, name, verdict, github_url}'
 ```
 
 ## What the reasons mean

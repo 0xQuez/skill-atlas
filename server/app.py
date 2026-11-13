@@ -7,7 +7,12 @@ from starlette.requests import Request
 from starlette.responses import JSONResponse
 from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
-from mcp.server.mcpserver import MCPServer
+try:
+    from mcp.server.mcpserver import MCPServer
+    _MCP_V2 = True
+except ImportError:  # Gradio Spaces ship mcp 1.x
+    from mcp.server.fastmcp import FastMCP as MCPServer
+    _MCP_V2 = False
 from mcp.server.transport_security import TransportSecuritySettings
 
 DATA = os.environ.get("SKILL_ATLAS_DATA", os.path.join(os.path.dirname(__file__), "..", "out", "full", "verdicts_compact.parquet"))
@@ -113,9 +118,42 @@ def stats():
     return out
 
 # ---------------- MCP ----------------
-mcp = MCPServer("skill-atlas", instructions="Look up agent skills (SKILL.md files on GitHub) and whether they are worth using. "
+def _csv_env(name, default=""):
+    return [x.strip() for x in os.environ.get(name, default).split(",") if x.strip()]
+
+def _bind_host():
+    return os.environ.get("HOST") or os.environ.get("SPACE_HOST") or "127.0.0.1"
+
+def _is_loopback(host: str) -> bool:
+    return host in ("127.0.0.1", "localhost", "::1", "[::1]")
+
+def _production(host: str) -> bool:
+    if os.environ.get("ATLAS_PRODUCTION", "").strip() in ("1", "true", "yes"):
+        return True
+    if os.environ.get("SPACE_HOST"):
+        return True
+    return not _is_loopback(host)
+
+_host = _bind_host()
+_prod = _production(_host)
+_allowed_hosts = list(dict.fromkeys([_host, *_csv_env("ALLOWED_HOSTS"), *(_csv_env("SPACE_HOST") if os.environ.get("SPACE_HOST") else [])]))
+_origins = _csv_env("CORS_ORIGINS", "*" if _prod else "")
+_rate = int(os.environ.get("RATE_LIMIT_PER_MIN", "60" if _prod else "0") or 0)
+_max_body = int(os.environ.get("MAX_REQUEST_BODY", str(1_048_576 if _prod else 4_194_304)))
+if _prod:
+    _ts = TransportSecuritySettings(enable_dns_rebinding_protection=False, allowed_hosts=[], allowed_origins=[])
+else:
+    _ts = None
+
+_INSTRUCTIONS = ("Look up agent skills (SKILL.md files on GitHub) and whether they are worth using. "
                 "verdict is use / caution / ignore with machine-readable reasons; prefer canonical_id over near-copies. "
                 "category 'white_hat_security' marks legit offensive-security tools: use them only for authorised security work.")
+if _MCP_V2:
+    mcp = MCPServer("skill-atlas", instructions=_INSTRUCTIONS)
+else:
+    mcp = MCPServer("skill-atlas", instructions=_INSTRUCTIONS,
+                    streamable_http_path="/mcp", json_response=True, stateless_http=True,
+                    host=_host, transport_security=_ts, max_request_body_size=_max_body)
 
 @mcp.tool()
 def search_skills(query: str, verdict: str | None = None, slop: bool | None = None, limit: int = 10, white_hat: str = "include") -> dict:
@@ -164,24 +202,6 @@ async def api_root(req: Request):
                          "search": "/skills/search", "stats": "/stats",
                          "source": "GitSkills (Destefanis et al., arXiv 2608.10906), CC BY 4.0; derived verdicts by Skill Atlas"})
 
-# Production hardening is off unless HOST is a public name, SPACE_HOST is set, or ATLAS_PRODUCTION=1.
-# Local 127.0.0.1 use stays as before (no extra rate limit, SDK localhost DNS-rebinding rules).
-def _csv_env(name, default=""):
-    return [x.strip() for x in os.environ.get(name, default).split(",") if x.strip()]
-
-def _bind_host():
-    return os.environ.get("HOST") or os.environ.get("SPACE_HOST") or "127.0.0.1"
-
-def _is_loopback(host: str) -> bool:
-    return host in ("127.0.0.1", "localhost", "::1", "[::1]")
-
-def _production(host: str) -> bool:
-    if os.environ.get("ATLAS_PRODUCTION", "").strip() in ("1", "true", "yes"):
-        return True
-    if os.environ.get("SPACE_HOST"):
-        return True
-    return not _is_loopback(host)
-
 class RateLimitMiddleware(BaseHTTPMiddleware):
     """Simple per-IP sliding window. Uses X-Forwarded-For when present (Hugging Face Spaces)."""
     def __init__(self, app, per_min: int):
@@ -191,13 +211,26 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         self.lock = threading.Lock()
         self._n = 0
 
+    def _client_ip(self, request) -> str:
+        # Prefer platform-set headers. Do not trust a client-supplied first
+        # X-Forwarded-For hop (it is easy to rotate and bypass the limiter).
+        for name in ("cf-connecting-ip", "true-client-ip", "x-real-ip"):
+            val = (request.headers.get(name) or "").strip()
+            if val:
+                return val.split(",")[0].strip()
+        xff = request.headers.get("x-forwarded-for")
+        if xff:
+            parts = [p.strip() for p in xff.split(",") if p.strip()]
+            # Hugging Face appends the connecting client; the last hop is the
+            # one the platform observed, the first hops may be spoofed.
+            if parts:
+                return parts[-1]
+        return request.client.host if request.client else "unknown"
+
     async def dispatch(self, request, call_next):
         if request.url.path in ("/healthz", "/"):
             return await call_next(request)
-        ip = request.client.host if request.client else "unknown"
-        xff = request.headers.get("x-forwarded-for")
-        if xff:
-            ip = xff.split(",")[0].strip()
+        ip = self._client_ip(request)
         now = time.time()
         with self.lock:
             window = [t for t in self.hits.get(ip, []) if now - t < 60]
@@ -221,11 +254,14 @@ class HostCheckMiddleware(BaseHTTPMiddleware):
     def _ok(self, host: str | None) -> bool:
         if not host:
             return False
+        # Gradio (and other local health checks) probe http://localhost:PORT; always allow loopback.
+        base = host.rsplit(":", 1)[0] if ":" in host and not host.startswith("[") else host
+        if base in ("127.0.0.1", "localhost", "::1", "[::1]", "0.0.0.0"):
+            return True
         if host in self.allowed:
             return True
         # allow "name:port" when "name:*" is in the list
         if ":" in host:
-            base = host.rsplit(":", 1)[0]
             if f"{base}:*" in self.allowed or base in self.allowed:
                 return True
         return False
@@ -235,22 +271,11 @@ class HostCheckMiddleware(BaseHTTPMiddleware):
             return JSONResponse({"error": "invalid_host"}, status_code=421)
         return await call_next(request)
 
-_host = _bind_host()
-_prod = _production(_host)
-_allowed_hosts = list(dict.fromkeys([_host, *_csv_env("ALLOWED_HOSTS"), *(_csv_env("SPACE_HOST") if os.environ.get("SPACE_HOST") else [])]))
-_origins = _csv_env("CORS_ORIGINS", "*" if _prod else "")
-_rate = int(os.environ.get("RATE_LIMIT_PER_MIN", "60" if _prod else "0") or 0)
-_max_body = int(os.environ.get("MAX_REQUEST_BODY", str(1_048_576 if _prod else 4_194_304)))
-
-if _prod:
-    # Host check is done by HostCheckMiddleware. Origin is handled by CORSMiddleware so
-    # browser and agent clients are not blocked; MCP has no wildcard for Origin.
-    _ts = TransportSecuritySettings(enable_dns_rebinding_protection=False, allowed_hosts=[], allowed_origins=[])
+if _MCP_V2:
+    app = mcp.streamable_http_app(streamable_http_path="/mcp", stateless_http=True, json_response=True,
+                                  host=_host, transport_security=_ts, max_request_body_size=_max_body)
 else:
-    _ts = None  # SDK applies localhost Host/Origin rules when host is 127.0.0.1
-
-app = mcp.streamable_http_app(streamable_http_path="/mcp", stateless_http=True, json_response=True,
-                              host=_host, transport_security=_ts, max_request_body_size=_max_body)
+    app = mcp.streamable_http_app()
 if _prod and _origins:
     app.add_middleware(CORSMiddleware,
                        allow_origins=["*"] if _origins == ["*"] else _origins,

@@ -42,5 +42,7 @@ dashboard/screenshots/*
 *.npy
 *.parquet
 
-# Copied from server/app.py by publish.sh; do not commit a second copy
-hf_publish/space_api/app.py
+# Baked API Parquet (staged for the Space only) and a copy of server/app.py
+hf_publish/space_api/data/
+hf_publish/space_api/__pycache__/
+hf_publish/space_api/atlas_server.py

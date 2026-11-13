@@ -1,5 +1,2 @@
 duckdb==2.0.0
-mcp==2.3.0
-uvicorn==0.54.0
 starlette
-huggingface_hub
